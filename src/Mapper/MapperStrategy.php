@@ -1,9 +1,9 @@
 <?php
 
-namespace OB\Mapper;
+namespace Bindto\Mapper;
 
-use OB\Exception\MapperNotFoundException;
-use OB\MapperInterface;
+use Bindto\Exception\MapperNotFoundException;
+use Bindto\MapperInterface;
 
 class MapperStrategy implements MapperInterface
 {

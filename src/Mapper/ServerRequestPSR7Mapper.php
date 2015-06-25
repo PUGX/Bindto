@@ -1,8 +1,8 @@
 <?php
-namespace OB\Mapper;
+namespace Bindto\Mapper;
 
-use OB\MapperInterface;
-use OB\PSR7RequestTrait;
+use Bindto\MapperInterface;
+use Bindto\PSR7RequestTrait;
 
 class ServerRequestPSR7Mapper implements MapperInterface
 {

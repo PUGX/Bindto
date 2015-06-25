@@ -1,12 +1,12 @@
 <?php
 
-namespace OB;
+namespace Bindto;
 
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\CachedReader;
 use Doctrine\Common\Cache\ApcCache;
 use Doctrine\Common\Cache\FilesystemCache;
-use OB\Mapper\MapperStrategy;
+use Bindto\Mapper\MapperStrategy;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validation;
 
@@ -21,7 +21,7 @@ class ExampleTest extends \PHPUnit_Framework_TestCase
 
         $request = $this->createRequest();
 
-        $bindResult = $binder->bind($request, \OB\Fixtures\DTOCreatePage::class);
+        $bindResult = $binder->bind($request, \Bindto\Fixtures\DTOCreatePage::class);
 
         $this->assertTrue($bindResult->isValid(), $bindResult->getViolations());
     }

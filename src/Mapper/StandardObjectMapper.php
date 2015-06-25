@@ -1,9 +1,9 @@
 <?php
 
-namespace OB\Mapper;
+namespace Bindto\Mapper;
 
 use Liuggio\Filler\PropertyTrait;
-use OB\MapperInterface;
+use Bindto\MapperInterface;
 
 class StandardObjectMapper implements MapperInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace OB\Exception;
+namespace Bindto\Exception;
 
 interface ExceptionInterface {
 

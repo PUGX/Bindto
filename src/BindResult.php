@@ -1,6 +1,6 @@
 <?php
 
-namespace OB;
+namespace Bindto;
 
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 

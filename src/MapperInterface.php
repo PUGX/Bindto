@@ -1,6 +1,6 @@
 <?php
 
-namespace OB;
+namespace Bindto;
 
 
 interface MapperInterface {

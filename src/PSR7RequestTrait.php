@@ -1,6 +1,6 @@
 <?php
 
-namespace OB;
+namespace Bindto;
 
 use Liuggio\Filler\PropertyTrait;
 use Psr\Http\Message\ServerRequestInterface;

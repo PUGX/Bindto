@@ -1,6 +1,6 @@
 <?php
 
-namespace OB\Fixtures;
+namespace Bindto\Fixtures;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -11,7 +11,6 @@ class DTOCreatePage
      * @Assert\Length(
      *      min = 2,
      *      max = 50)
-     *
      */
     public $title;
 

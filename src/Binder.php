@@ -1,8 +1,8 @@
 <?php
 
-namespace OB;
+namespace Bindto;
 
-use OB\Mapper\MapperStrategy;
+use Bindto\Mapper\MapperStrategy;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Doctrine\Common\Annotations\AnnotationReader;
@@ -42,7 +42,7 @@ class Binder
     public static function createSimpleProductionBinder()
     {
         if ( !extension_loaded('apc') || false === @apc_cache_info()) {
-            $readerCache = new CachedReader(new AnnotationReader(), new FilesystemCache(sys_get_temp_dir().'/obinder'));
+            $readerCache = new CachedReader(new AnnotationReader(), new FilesystemCache(sys_get_temp_dir().'/Bindto'));
         } else {
             $readerCache = new CachedReader(new AnnotationReader(), new ApcCache());
         }

@@ -1,8 +1,8 @@
 <?php
 
-namespace OB;
+namespace Bindto;
 
-use OB\Mapper\MapperStrategy;
+use Bindto\Mapper\MapperStrategy;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validation;
 
@@ -17,7 +17,7 @@ class BinderTest extends \PHPUnit_Framework_TestCase
         $request = $this->createRequest();
 
         $binder = Binder::createDefaultBinder();
-        $bindResult = $binder->bind($request, \OB\Fixtures\DTOCreatePage::class);
+        $bindResult = $binder->bind($request, \Bindto\Fixtures\DTOCreatePage::class);
 
         $this->assertTrue($bindResult->isValid(), $bindResult->getViolations());
     }
@@ -34,7 +34,7 @@ class BinderTest extends \PHPUnit_Framework_TestCase
         $request = Request::create('http://test.com/foo', 'PATCH', $vars, [], [], []);
 
         $binder = Binder::createDefaultBinder();
-        $bindResult = $binder->bind($request, \OB\Fixtures\DTOCreatePage::class);
+        $bindResult = $binder->bind($request, \Bindto\Fixtures\DTOCreatePage::class);
 
         $this->assertTrue($bindResult->isValid(), $bindResult->getViolations());
         $this->assertEquals($vars['body'], $bindResult->getData()->body);
@@ -54,7 +54,7 @@ class BinderTest extends \PHPUnit_Framework_TestCase
         $request = Request::create('http://test.com/foo', 'POST',$vars,[],[],[]);
 
         $binder = Binder::createDefaultBinder();
-        $bindResult = $binder->bind($request, \OB\Fixtures\DTOCreatePage::class);
+        $bindResult = $binder->bind($request, \Bindto\Fixtures\DTOCreatePage::class);
 
         $this->assertCount(1, $bindResult->getViolations());
     }
@@ -72,14 +72,14 @@ class BinderTest extends \PHPUnit_Framework_TestCase
         ];
 
         $binder = Binder::createDefaultBinder();
-        $bindResult = $binder->bind($vars, \OB\Fixtures\DTOCreatePage::class);
+        $bindResult = $binder->bind($vars, \Bindto\Fixtures\DTOCreatePage::class);
 
         $this->assertTrue($bindResult->isValid(), $bindResult->getViolations());
     }
 
     /**
      * @test
-     * @expectedException \OB\Exception\MapperNotFoundException
+     * @expectedException \Bindto\Exception\MapperNotFoundException
      */
     public function shouldRaiseException()
     {
@@ -95,7 +95,7 @@ class BinderTest extends \PHPUnit_Framework_TestCase
             ->getValidator();
         $mapper = new MapperStrategy();
         $binder = new Binder($validator, $mapper);
-        $binder->bind($vars, \OB\Fixtures\DTOCreatePage::class);
+        $binder->bind($vars, \Bindto\Fixtures\DTOCreatePage::class);
     }
 
     /**

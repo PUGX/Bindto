@@ -1,5 +1,5 @@
 {
-  "name": "???/obinder",
+  "name": "pugx/bindto",
   "authors": [
     {
       "name": "Giulio De Donato",
@@ -17,16 +17,18 @@
     "doctrine/common": "^2.6@dev",
     "psr/http-message": "^1.0@dev"
   },
+  "config": {
+    "bin-dir": "bin/"
+  },
   "require-dev": {
     "phpunit/phpunit": "^5.0@dev",
-    "symfony/http-foundation": "^3.0@dev",
-    "indigophp/doctrine-annotation-autoload": "^0.1.0@dev"
+    "symfony/http-foundation": "^3.0@dev"
   },
   "minimum-stability": "dev",
   "autoload": {
-    "psr-4": { "OB\\": "src"}
+    "psr-4": { "Bindto\\": "src"}
   },
   "autoload-dev": {
-    "psr-4": { "OB\\": "tests" }
+    "psr-4": { "Bindto\\": "tests" }
   }
 }

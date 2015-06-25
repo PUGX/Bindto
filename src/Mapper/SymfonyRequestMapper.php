@@ -1,9 +1,9 @@
 <?php
 
-namespace OB\Mapper;
+namespace Bindto\Mapper;
 
 use Liuggio\Filler\HTTPPropertyTrait;
-use OB\MapperInterface;
+use Bindto\MapperInterface;
 
 class SymfonyRequestMapper implements MapperInterface
 {
