@@ -1,0 +1,32 @@
+{
+  "name": "???/obinder",
+  "authors": [
+    {
+      "name": "Giulio De Donato",
+      "email": "liuggio@gmail.com"
+    },
+    {
+      "name": "Simone Di Maulo",
+      "email": "toretto460@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.5",
+    "symfony/validator": "^2.7",
+    "liuggio/filler-dto": "^0.1.0@dev",
+    "doctrine/common": "^2.6@dev",
+    "psr/http-message": "^1.0@dev"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^5.0@dev",
+    "symfony/http-foundation": "^3.0@dev",
+    "indigophp/doctrine-annotation-autoload": "^0.1.0@dev"
+  },
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": { "OB\\": "src"}
+  },
+  "autoload-dev": {
+    "psr-4": { "OB\\": "tests" }
+  }
+}
