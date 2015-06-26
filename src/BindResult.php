@@ -11,7 +11,7 @@ class BindResult
     /** @var ConstraintViolationListInterface */
     private $violations;
 
-    function __construct($data, $violations = [])
+    public function __construct($data, $violations = [])
     {
         $this->data = $data;
         $this->violations = $violations;
@@ -19,7 +19,7 @@ class BindResult
 
     public function isValid()
     {
-        return count($this->violations)<1;
+        return count($this->violations) < 1;
     }
 
     public function getData()
@@ -27,7 +27,8 @@ class BindResult
         return $this->data;
     }
 
-    public function getViolations() {
+    public function getViolations()
+    {
         return $this->violations;
     }
 }

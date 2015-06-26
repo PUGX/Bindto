@@ -8,7 +8,6 @@ use Symfony\Component\Validator\Validation;
 
 class BinderTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @test
      */
@@ -28,7 +27,7 @@ class BinderTest extends \PHPUnit_Framework_TestCase
     public function shouldBindAndValidatePartiallyAPatch()
     {
         $vars = [
-            'body' => 'only the body is patched'
+            'body' => 'only the body is patched',
         ];
 
         $request = Request::create('http://test.com/foo', 'PATCH', $vars, [], [], []);
@@ -46,12 +45,12 @@ class BinderTest extends \PHPUnit_Framework_TestCase
     public function shouldReturnAViolation()
     {
         $vars = [
-            'body'=>'Lorem ipsum dolor sit amet, consectetuer adipi',
-            'seoTitle'=>'slug of lorem ',
-            'seoDescription' => 'Lorem ipsum dolor sit amet, consectetuer adipi'
+            'body' => 'Lorem ipsum dolor sit amet, consectetuer adipi',
+            'seoTitle' => 'slug of lorem ',
+            'seoDescription' => 'Lorem ipsum dolor sit amet, consectetuer adipi',
         ];
 
-        $request = Request::create('http://test.com/foo', 'POST',$vars,[],[],[]);
+        $request = Request::create('http://test.com/foo', 'POST', $vars, [], [], []);
 
         $binder = Binder::createDefaultBinder();
         $bindResult = $binder->bind($request, \Bindto\Fixtures\DTOCreatePage::class);
@@ -66,9 +65,9 @@ class BinderTest extends \PHPUnit_Framework_TestCase
     {
         $vars = [
             'title' => 'yes',
-            'body'=>'Lorem ipsum dolor sit amet, consectetuer adipi',
-            'seoTitle'=>'slug of lorem ',
-            'seoDescription' => 'Lorem ipsum dolor sit amet, consectetuer adipi'
+            'body' => 'Lorem ipsum dolor sit amet, consectetuer adipi',
+            'seoTitle' => 'slug of lorem ',
+            'seoDescription' => 'Lorem ipsum dolor sit amet, consectetuer adipi',
         ];
 
         $binder = Binder::createDefaultBinder();
@@ -85,12 +84,12 @@ class BinderTest extends \PHPUnit_Framework_TestCase
     {
         $vars = [
             'title' => 'yes',
-            'body'=>'Lorem ipsum dolor sit amet, consectetuer adipi',
-            'seoTitle'=>'slug of lorem ',
-            'seoDescription' => 'Lorem ipsum dolor sit amet, consectetuer adipi'
+            'body' => 'Lorem ipsum dolor sit amet, consectetuer adipi',
+            'seoTitle' => 'slug of lorem ',
+            'seoDescription' => 'Lorem ipsum dolor sit amet, consectetuer adipi',
         ];
 
-        $validator =  Validation::createValidatorBuilder()
+        $validator = Validation::createValidatorBuilder()
             ->enableAnnotationMapping()
             ->getValidator();
         $mapper = new MapperStrategy();
@@ -107,10 +106,11 @@ class BinderTest extends \PHPUnit_Framework_TestCase
             'title' => 'my-slug',
             'body' => 'Lorem ipsum dolor sit amet, consectetuer adipi',
             'seoTitle' => 'slug of lorem ',
-            'seoDescription' => 'Lorem ipsum dolor sit amet, consectetuer adipi'
+            'seoDescription' => 'Lorem ipsum dolor sit amet, consectetuer adipi',
         ];
 
         $request = Request::create('http://test.com/foo', 'POST', $vars, [], [], []);
+
         return $request;
     }
 }

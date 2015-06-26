@@ -19,7 +19,7 @@ class Binder
     /** @var array */
     private $defaultGroups;
 
-    function __construct(ValidatorInterface $validator, MapperInterface $mapper, $addDefaultGroups = ['Default'])
+    public function __construct(ValidatorInterface $validator, MapperInterface $mapper, $addDefaultGroups = ['Default'])
     {
         $this->validator = $validator;
         $this->mapper = $mapper;
@@ -41,7 +41,7 @@ class Binder
 
     public static function createSimpleProductionBinder()
     {
-        if ( !extension_loaded('apc') || false === @apc_cache_info()) {
+        if (!extension_loaded('apc') || false === @apc_cache_info()) {
             $readerCache = new CachedReader(new AnnotationReader(), new FilesystemCache(sys_get_temp_dir().'/Bindto'));
         } else {
             $readerCache = new CachedReader(new AnnotationReader(), new ApcCache());
@@ -63,6 +63,7 @@ class Binder
      * @param mixed $object
      *
      * @return BindResult
+     *
      * @throws \Exception
      */
     public function bind($request, $object)
