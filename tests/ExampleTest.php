@@ -2,13 +2,7 @@
 
 namespace Bindto;
 
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\CachedReader;
-use Doctrine\Common\Cache\ApcCache;
-use Doctrine\Common\Cache\FilesystemCache;
-use Bindto\Mapper\MapperStrategy;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\Validation;
 
 class ExampleTest extends \PHPUnit_Framework_TestCase
 {
@@ -35,10 +29,11 @@ class ExampleTest extends \PHPUnit_Framework_TestCase
             'title' => 'my-slug',
             'body' => 'Lorem ipsum dolor sit amet, consectetuer adipi',
             'seoTitle' => 'slug of lorem ',
-            'seoDescription' => 'Lorem ipsum dolor sit amet, consectetuer adipi'
+            'seoDescription' => 'Lorem ipsum dolor sit amet, consectetuer adipi',
         ];
 
         $request = Request::create('http://test.com/foo', 'POST', $vars, [], [], []);
+
         return $request;
     }
 }

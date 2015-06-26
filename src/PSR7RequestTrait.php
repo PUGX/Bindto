@@ -40,8 +40,8 @@ trait PSR7RequestTrait
 
         if (isset($serverParams[$name]) || isset($uploadedFiles[$name])) {
             $default = null;
-            $params = isset($serverParams[$name])?$serverParams[$name]:null;
-            $files = isset($uploadedFiles[$name])?$uploadedFiles[$name]:null;
+            $params = isset($serverParams[$name]) ? $serverParams[$name] : null;
+            $files = isset($uploadedFiles[$name]) ? $uploadedFiles[$name] : null;
 
             return $this->mergeParamsAndUploadedFiles($params, $files);
         }
@@ -53,16 +53,19 @@ trait PSR7RequestTrait
     /**
      * @param $params
      * @param $files
+     *
      * @return array
      */
     private function mergeParamsAndUploadedFiles($params, $files)
     {
         if (is_array($params) && is_array($files)) {
             $data = array_replace_recursive($params, $files);
+
             return $data;
         }
 
         $data = $params ?: $files;
+
         return $data;
     }
-} 
+}

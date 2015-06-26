@@ -44,20 +44,20 @@ class MapperStrategy implements MapperInterface
     }
 
     /**
-     * {@inherit}
+     * {@inherit}.
      *
      * @throws \Exception
      */
     public function map($from, $to)
     {
-        foreach ($this->strategies as $class=>$strategy) {
+        foreach ($this->strategies as $class => $strategy) {
             if ($from instanceof $class) {
                 return $strategy->map($from, $to);
             }
         }
 
         if ($this->fallaback) {
-           return $this->fallaback->map($from, $to);
+            return $this->fallaback->map($from, $to);
         }
 
         throw new MapperNotFoundException($from);

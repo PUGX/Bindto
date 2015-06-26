@@ -2,16 +2,15 @@
 
 namespace Bindto;
 
-
-interface MapperInterface {
-
+interface MapperInterface
+{
     /**
-     * Map all the properties from $from to $to, returning a new object
+     * Map all the properties from $from to $to, returning a new object.
      *
      * @param $from
      * @param $to
      *
      * @return mixed
      */
-    function map($from, $to);
+    public function map($from, $to);
 }

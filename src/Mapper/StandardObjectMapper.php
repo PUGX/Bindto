@@ -9,7 +9,7 @@ class StandardObjectMapper implements MapperInterface
 {
     use PropertyTrait;
 
-    function map($from, $to)
+    public function map($from, $to)
     {
         $copyOfTo = $to;
         $this->fillProperties($from, $copyOfTo);

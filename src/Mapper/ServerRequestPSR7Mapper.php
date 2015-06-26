@@ -1,4 +1,5 @@
 <?php
+
 namespace Bindto\Mapper;
 
 use Bindto\MapperInterface;
@@ -8,7 +9,7 @@ class ServerRequestPSR7Mapper implements MapperInterface
 {
     use PSR7RequestTrait;
 
-    function map($from, $to)
+    public function map($from, $to)
     {
         $copyOfTo = $to;
         $this->fillPropertiesFromPSR7Request($from, $copyOfTo);
