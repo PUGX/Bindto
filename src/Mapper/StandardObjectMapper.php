@@ -11,9 +11,8 @@ class StandardObjectMapper implements MapperInterface
 
     public function map($from, $to)
     {
-        $copyOfTo = $to;
-        $this->fillProperties($from, $copyOfTo);
+        $this->fillProperties($from, $to);
 
-        return $copyOfTo;
+        return $to;
     }
 }
