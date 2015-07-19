@@ -9,7 +9,7 @@ trait PSR7RequestTrait
 {
     use PropertyTrait;
 
-    public function fillPropertiesFromPSR7Request(ServerRequestInterface $request, &$to = null, $name = '')
+    public function fillPropertiesFromPSR7Request(ServerRequestInterface $request, $to = null, $name = '')
     {
         $data = $this->_extractDataPSR7($request, $name);
         $this->fillProperties($data, $to);
