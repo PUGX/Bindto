@@ -4,7 +4,10 @@
 <phpunit bootstrap="tests/autoload.php"
          backupGlobals="false"
          backupStaticAttributes="false"
-         strict="true"
+         report-useless-tests="true"
+         strict-coverage="true"
+         disallow-test-output="true"
+         strict-global-state="true"
          colors="true"
          verbose="true">
     <testsuites>
