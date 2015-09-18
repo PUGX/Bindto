@@ -1,8 +1,13 @@
 language: php
 
-php: [5.4, 5.5, hhvm]
+php: [ 5.5, hhvm]
 
+sudo: false
 
+matrix:
+    allow_failures:
+        - php: hhvm
+        
 before_script:
   - composer self-update
   - composer update --prefer-source
