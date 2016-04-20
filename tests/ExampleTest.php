@@ -18,11 +18,11 @@ class ExampleTest extends \PHPUnit_Framework_TestCase
 
         $bindResult = $binder->bind($request, DTOCreatePage::class);
 
-        $this->assertTrue($bindResult->isValid(), "bind result should be valid");
-        $this->assertEmpty($bindResult->getViolations(), "violations should be empty");
-        $this->assertInstanceOf('Bindto\Fixtures\DTOCreatePage', $bindResult->getData(), "we should get back a DTOCreatePage object");
+        $this->assertTrue($bindResult->isValid(), 'bind result should be valid');
+        $this->assertEmpty($bindResult->getViolations(), 'violations should be empty');
+        $this->assertInstanceOf('Bindto\Fixtures\DTOCreatePage', $bindResult->getData(), 'we should get back a DTOCreatePage object');
         $obj = $bindResult->getData();
-        $this->assertEquals('my-slug', $obj->title, "request values should be successfully mapped in resulting object");
+        $this->assertEquals('my-slug', $obj->title, 'request values should be successfully mapped in resulting object');
     }
 
     /**
@@ -35,7 +35,7 @@ class ExampleTest extends \PHPUnit_Framework_TestCase
             'body' => 'Lorem ipsum dolor sit amet, consectetuer adipi',
             'seoTitle' => 'slug of lorem ',
             'seoDescription' => 'Lorem ipsum dolor sit amet, consectetuer adipi',
-            'respect' => 'robustness principle'     //this element should be ignored as it is not part of the class structure to be mapped
+            'respect' => 'robustness principle',     //this element should be ignored as it is not part of the class structure to be mapped
         ];
 
         $request = Request::create('http://test.com/foo', 'POST', $vars, [], [], []);
