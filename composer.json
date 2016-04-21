@@ -14,7 +14,7 @@
     ],
     "require": {
         "php": ">=5.5",
-        "symfony/validator": "^2.7|3.0",
+        "symfony/validator": "^2.7|^3.0",
         "liuggio/filler-dto": "^0.1.0",
         "doctrine/common": "^2.6",
         "psr/http-message": "^1.0"
