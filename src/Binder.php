@@ -61,12 +61,13 @@ class Binder
     /**
      * @param mixed $request
      * @param mixed $object
+     * @param string[] $validationGroups Groups to apply validation to
      *
      * @return BindResult
      *
      * @throws \Exception
      */
-    public function bind($request, $object)
+    public function bind($request, $object, array $validationGroups = [])
     {
         if (!is_object($object)) {
             $object = new $object();
@@ -76,9 +77,12 @@ class Binder
 
         $groups = $this->defaultGroups;
 
-        if (is_callable(array($request, 'getMethod'), true)) {
+        if (is_callable([$request, 'getMethod'], true)) {
             $groups[] = $request->getMethod();
         }
+
+        $groups = array_merge($groups, $validationGroups);
+
         $issues = $this->validator->validate($object, null, $groups);
 
         return $this->createBindResultFromFilledObject($issues, $newObject);
