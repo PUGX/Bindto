@@ -13,11 +13,11 @@ use Doctrine\Common\Cache\FilesystemCache;
 class Binder
 {
     /** @var ValidatorInterface */
-    private $validator;
+    protected $validator;
     /** @var MapperInterface */
-    private $mapper;
+    protected $mapper;
     /** @var array */
-    private $defaultGroups;
+    protected $defaultGroups;
 
     public function __construct(ValidatorInterface $validator, MapperInterface $mapper, $addDefaultGroups = ['Default'])
     {
@@ -88,7 +88,7 @@ class Binder
         return $this->createBindResultFromFilledObject($issues, $newObject);
     }
 
-    private function createBindResultFromFilledObject($issues, $object)
+    protected function createBindResultFromFilledObject($issues, $object)
     {
         return new BindResult($object, $issues);
     }
