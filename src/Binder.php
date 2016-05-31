@@ -77,7 +77,7 @@ class Binder
 
         $groups = $this->defaultGroups;
 
-        if (is_callable([$request, 'getMethod'], true)) {
+        if (method_exists($request, 'getMethod')) {
             $groups[] = $request->getMethod();
         }
 
