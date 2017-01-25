@@ -19,6 +19,9 @@
         "doctrine/common": "^2.6",
         "psr/http-message": "^1.0"
     },
+    "suggest": {
+        "symfony/property-access": "Required to use ConvertingObjectMapper"
+    },
     "config": {
         "bin-dir": "bin/"
     },
