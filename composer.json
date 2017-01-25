@@ -1,5 +1,5 @@
 {
-    "name": "pugx/bindto",
+    "name": "myschoolmanagement/bindto",
     "description": "Simple way to bind Request to DTO/Commands",
     "license": "MIT",
     "authors": [
