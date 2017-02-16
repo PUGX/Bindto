@@ -2,6 +2,7 @@
 
 namespace Bindto\Mapper;
 
+use Bindto\Annotation\Converters;
 use Bindto\ConverterInterface;
 use Bindto\Exception\ConversionException;
 use Doctrine\Common\Annotations\Reader;
@@ -107,34 +108,16 @@ class ConvertingObjectMapper implements MapperInterface
             $reflector = new \ReflectionClass($to);
 
             array_map(function (\ReflectionProperty $property) use ($from, $to) {
-                $annotations = array_filter($this->annotationReader->getPropertyAnnotations($property), function ($annotation) {
-                    return ($annotation instanceof Convert);
-                });
+                array_map(function ($annotation) use ($property, $from, $to) {
+                    $convertAnnotations = [];
 
-                array_map(function ($annotation) use ($from, $to, $property) {
-                    $converter = $annotation->converter;
-                    $options = $annotation->options;
-                    $value = $this->getPropertyValue($to, $property->getName());
-
-                    if (true === $annotation->isArray) {
-                        foreach ($value as $key => $item) {
-                            $filteredItem = $this->filterUnconvertableValues($item);
-                            $propertyPath = sprintf('%s[%s]', $property->getName(), $key);
-                            $convertedValue = null;
-
-                            if (null !== $filteredItem) {
-                                $convertedValue = $this->convert($filteredItem, $propertyPath, $converter, $options, $from);
-                            }
-
-                            $this->setPropertyValue($to, $propertyPath, $convertedValue);
-                        }
+                    if ($annotation instanceof Converters) {
+                        $convertAnnotations = $annotation->converters;
                     } else {
-                        $filteredValue = $this->filterUnconvertableValues($value);
-                        $convertedValue = null;
-
-                        if (null !== $filteredValue) {
-                            $convertedValue = $this->convert($filteredValue, $property->getName(), $converter, $options, $from);
+                        if ($annotation instanceof Convert) {
+                            $convertAnnotations[] = $annotation;
                         }
+                    }
 
                     if (count($convertAnnotations) > 0) {
                         $this->defaultValueProcessor->process($property, $to);
@@ -148,6 +131,37 @@ class ConvertingObjectMapper implements MapperInterface
         }
 
         return $to;
+    }
+
+    private function processProperty(Convert $annotation, \ReflectionProperty $property, $source, $obj)
+    {
+        $propertyName = $property->getName();
+        $converter = $annotation->converter;
+        $options = $annotation->options;
+        $value = $this->getPropertyValue($obj, $propertyName);
+
+        if (true === $annotation->isArray) {
+            foreach ($value as $key => $item) {
+                $filteredItem = $this->filterUnconvertableValues($item);
+                $propertyPath = sprintf('%s[%s]', $property->getName(), $key);
+                $convertedValue = null;
+
+                if (null !== $filteredItem) {
+                    $convertedValue = $this->convert($filteredItem, $propertyPath, $converter, $options, $source);
+                }
+
+                $this->setPropertyValue($obj, $propertyPath, $convertedValue);
+            }
+        } else {
+            $filteredValue = $this->filterUnconvertableValues($value);
+            $convertedValue = null;
+
+            if (null !== $filteredValue) {
+                $convertedValue = $this->convert($filteredValue, $propertyName, $converter, $options, $source);
+            }
+
+            $this->setPropertyValue($obj, $propertyName, $convertedValue);
+        }
     }
 
     /**

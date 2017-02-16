@@ -1,14 +1,11 @@
 <?php
 namespace Bindto\Annotation;
 
+use Doctrine\Common\Annotations\Annotation\Required;
+
 /**
  * @Annotation
- * @Target({"PROPERTY"})
- * @Attributes({
- *   @Attribute("converter", type="string", required=true),
- *   @Attribute("isArray", type="bool"),
- *   @Attribute("options", type="array", required=true),
- * })
+ * @Target({"PROPERTY", "ANNOTATION"})
  */
 class Convert
 {
@@ -17,6 +14,7 @@ class Convert
      * Name of the converter to apply.
      *
      * @var string
+     * @Required()
      */
     public $converter;
 
