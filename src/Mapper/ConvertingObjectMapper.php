@@ -40,6 +40,11 @@ class ConvertingObjectMapper implements MapperInterface
     private $propertyAccessor;
 
     /**
+     * @var DefaultValueProcessor
+     */
+    private $defaultValueProcessor;
+
+    /**
      * @var array
      */
     private $converters = [];
@@ -62,12 +67,14 @@ class ConvertingObjectMapper implements MapperInterface
     /**
      * @param MapperInterface $propertyMapper
      * @param Reader $annotationReader
+     * @param DefaultValueProcessor $defaultValueProcessor
      * @param bool $collectExceptions
      */
-    public function __construct(MapperInterface $propertyMapper, Reader $annotationReader, $collectExceptions = false)
+    public function __construct(MapperInterface $propertyMapper, Reader $annotationReader, DefaultValueProcessor $defaultValueProcessor, $collectExceptions = false)
     {
         $this->propertyMapper = $propertyMapper;
         $this->annotationReader = $annotationReader;
+        $this->defaultValueProcessor = $defaultValueProcessor;
         $this->collectExceptions = $collectExceptions;
         $this->propertyAccessor = PropertyAccess::createPropertyAccessor();
 
@@ -129,9 +136,14 @@ class ConvertingObjectMapper implements MapperInterface
                             $convertedValue = $this->convert($filteredValue, $property->getName(), $converter, $options, $from);
                         }
 
-                        $this->setPropertyValue($to, $property->getName(), $convertedValue);
-                   }
-                }, $annotations);
+                    if (count($convertAnnotations) > 0) {
+                        $this->defaultValueProcessor->process($property, $to);
+                    }
+
+                    foreach ($convertAnnotations as $convertAnnotation) {
+                        $this->processProperty($convertAnnotation, $property, $from, $to);
+                    }
+                }, $this->annotationReader->getPropertyAnnotations($property));
             }, $reflector->getProperties());
         }
 
