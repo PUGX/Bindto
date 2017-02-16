@@ -6,7 +6,6 @@ use Bindto\Annotation\Converters;
 use Bindto\ConverterInterface;
 use Bindto\Exception\ConversionException;
 use Doctrine\Common\Annotations\Reader;
-use Liuggio\Filler\PropertyTrait;
 use Bindto\Annotation\Convert;
 use Bindto\MapperInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;

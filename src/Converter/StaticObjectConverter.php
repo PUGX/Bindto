@@ -6,12 +6,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class StaticObjectConverter extends AbstractConverter
 {
-
-    /**
-     * @var Binder
-     */
-    private $binder;
-
     /**
      * {@inheritdoc}
      */
