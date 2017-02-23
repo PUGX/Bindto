@@ -65,6 +65,13 @@ class ConvertingObjectMapper implements MapperInterface
     private $collectExceptions;
 
     /**
+     * Is the conversion phase enabled?
+     *
+     * @var bool
+     */
+    private $enabled = true;
+
+    /**
      * @param MapperInterface $propertyMapper
      * @param Reader $annotationReader
      * @param DefaultValueProcessor $defaultValueProcessor
@@ -98,10 +105,30 @@ class ConvertingObjectMapper implements MapperInterface
         $this->converters[$name] = $converter;
     }
 
+    /**
+     * Disables the conversion phase.
+     */
+    public function disable()
+    {
+        $this->enabled = false;
+    }
+
+    /**
+     * Enables the conversion phase. Enabled by default.
+     */
+    public function enable()
+    {
+        $this->enabled = true;
+    }
+
     public function map($from, $to)
     {
         $from = $this->filterUnconvertableValues($from);
         $this->propertyMapper->map($from, $to);
+
+        if (false === $this->enabled) {
+            return $to;
+        }
 
         if (is_object($to)) {
             $reflector = new \ReflectionClass($to);
