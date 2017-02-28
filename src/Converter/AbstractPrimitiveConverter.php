@@ -6,7 +6,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class AbstractPrimitiveConverter extends AbstractConverter
 {
-
     /**
      * {@inheritdoc}
      */
@@ -22,8 +21,8 @@ abstract class AbstractPrimitiveConverter extends AbstractConverter
 
         // if value is an object and we're not being asked to cast to an array then leave it as an object. this is
         // desirable in most situations as it exposes bugs in your validation workflow.
-        if ((true === is_object($value)) && ('array' !== $type)) {
-            return $obj;
+        if ((true === is_object($value)) && (!$this instanceof ArrayConverter)) {
+            return $value;
         }
 
         $newValue = $this->onApply($value, $propertyName, $options, $from);
