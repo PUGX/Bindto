@@ -8,24 +8,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class NestedObjectConverter extends AbstractConverter
 {
-
-    /**
-     * @var Binder
-     */
-    private $binder;
-
     /**
      * @var ConvertingObjectMapper
      */
     private $parentMapper;
 
     /**
-     * @param Binder $binder
      * @param ConvertingObjectMapper $parentMapper
      */
-    public function __construct(Binder $binder, ConvertingObjectMapper $parentMapper)
+    public function __construct(ConvertingObjectMapper $parentMapper)
     {
-        $this->binder = $binder;
         $this->parentMapper = $parentMapper;
     }
 
