@@ -3,6 +3,7 @@
 namespace Bindto\Mapper;
 
 use Bindto\Annotation\Converters;
+use Bindto\Converter\NestedObjectConverter;
 use Bindto\ConverterInterface;
 use Bindto\Exception\ConversionException;
 use Doctrine\Common\Annotations\Reader;
@@ -107,6 +108,8 @@ class ConvertingObjectMapper implements MapperInterface
 
     /**
      * Disables the conversion phase.
+     *
+     * Nested converters will still run to create the correct object structure.
      */
     public function disable()
     {
@@ -123,12 +126,7 @@ class ConvertingObjectMapper implements MapperInterface
 
     public function map($from, $to)
     {
-        $from = $this->filterUnconvertableValues($from);
         $this->propertyMapper->map($from, $to);
-
-        if (false === $this->enabled) {
-            return $to;
-        }
 
         if (is_object($to)) {
             $reflector = new \ReflectionClass($to);
@@ -145,7 +143,7 @@ class ConvertingObjectMapper implements MapperInterface
                         }
                     }
 
-                    if (count($convertAnnotations) > 0) {
+                    if ((true === $this->enabled) && (count($convertAnnotations) > 0)) {
                         $this->defaultValueProcessor->process($property, $to);
                     }
 
@@ -168,18 +166,18 @@ class ConvertingObjectMapper implements MapperInterface
 
         if (true === $annotation->isArray) {
             foreach ($value as $key => $item) {
-                $filteredItem = $this->filterUnconvertableValues($item);
+                $filteredItem = $this->filterNestedObjects($item);
                 $propertyPath = sprintf('%s[%s]', $property->getName(), $key);
-                $convertedValue = null;
+                $convertedItem = null;
 
                 if (null !== $filteredItem) {
-                    $convertedValue = $this->convert($filteredItem, $propertyPath, $converter, $options, $source);
+                    $convertedItem = $this->convert($filteredItem, $propertyPath, $converter, $options, $source);
                 }
 
-                $this->setPropertyValue($obj, $propertyPath, $convertedValue);
+                $this->setPropertyValue($obj, $propertyPath, $convertedItem);
             }
         } else {
-            $filteredValue = $this->filterUnconvertableValues($value);
+            $filteredValue = $this->filterNestedObjects($value);
             $convertedValue = null;
 
             if (null !== $filteredValue) {
@@ -246,6 +244,16 @@ class ConvertingObjectMapper implements MapperInterface
     protected function convert($value, $propertyPath, $converterName, array $converterOptions, $from)
     {
         $converter = $this->getConverterInstance($converterName);
+        $isNestedConverter = $converter instanceof NestedObjectConverter;
+
+        // when converters are disabled we only want to run the nested converters so that we create the correct object structure
+        if ((false === $this->enabled) && (false === $isNestedConverter)) {
+            return $value;
+        }
+
+        if ((null === $value) && (false === $isNestedConverter)) {
+            return null;
+        }
 
         try {
             return $converter->apply($value, $propertyPath, $converterOptions, $from);
@@ -311,18 +319,18 @@ class ConvertingObjectMapper implements MapperInterface
      * @param mixed $item
      * @return mixed
      */
-    private function filterUnconvertableValues($item)
+    private function filterNestedObjects($item)
     {
-        if (false === is_array($item)) {
+        if ((false === $this->enabled) || (false === is_array($item))) {
             return $item;
         }
 
         // filter null values to satisfy the case where a nested object is optional
-        $itemSize = sizeof($item);
+        $itemSize = count($item);
         $filtered = array_filter($item, function($e) {
             return !is_null($e);
         });
-        $newSize = sizeof($filtered);
+        $newSize = count($filtered);
 
         // if $item is empty because of our filter, set it to null also
         if (($newSize !== $itemSize) && ($newSize === 0)) {
