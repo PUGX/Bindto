@@ -10,6 +10,11 @@ class ConversionException extends \Exception implements ExceptionInterface
     const SYSTEM = 3;
 
     /**
+     * @var $translationKey
+     */
+    private $translationKey;
+
+    /**
      * @var string
      */
     private $propertyPath;
@@ -23,15 +28,25 @@ class ConversionException extends \Exception implements ExceptionInterface
      * @param string $propertyPath
      * @param mixed $value
      * @param string $message
+     * @param string $translationKey
      * @param int $code
      * @param mixed $previous
      */
-    public function __construct($propertyPath, $value, $message = null, $code = 0, $previous = null)
+    public function __construct($propertyPath, $value, $message = null, $translationKey, $code = 0, $previous = null)
     {
         parent::__construct(sprintf('The conversion of "%s" failed: %s', $propertyPath, $message ?: 'Unknown reason'), $code, $previous);
 
         $this->propertyPath = $propertyPath;
         $this->value = $value;
+        $this->translationKey = $translationKey;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTranslationKey()
+    {
+        return $this->translationKey;
     }
 
     /**
@@ -67,12 +82,13 @@ class ConversionException extends \Exception implements ExceptionInterface
      * @param string $propertyPath
      * @param mixed $value
      * @param string $message
+     * @param $translationKey
      * @param mixed $previous
      * @return static
      */
-    public static function fromDomain($propertyPath, $value, $message = null, $previous = null)
+    public static function fromDomain($propertyPath, $value, $message = null, $translationKey, $previous = null)
     {
-        return new static($propertyPath, $value, $message, static::DOMAIN, $previous);
+        return new static($propertyPath, $value, $message, $translationKey, static::DOMAIN, $previous);
     }
 
     /**
@@ -85,7 +101,7 @@ class ConversionException extends \Exception implements ExceptionInterface
      */
     public static function fromNotFound($propertyPath, $value, $previous = null)
     {
-        return new static($propertyPath, $value, 'Not found', static::NOT_FOUND, $previous);
+        return new static($propertyPath, $value, 'Not found', 'conversion_exception.not_found',static::NOT_FOUND, $previous);
     }
 
     /**
@@ -94,11 +110,12 @@ class ConversionException extends \Exception implements ExceptionInterface
      * @param string $propertyPath
      * @param mixed $value
      * @param string $message
+     * @param $translationKey
      * @param mixed $previous
      * @return static
      */
-    public static function fromSystem($propertyPath, $value, $message = null, $previous = null)
+    public static function fromSystem($propertyPath, $value, $message = null, $translationKey, $previous = null)
     {
-        return new static($propertyPath, $value, $message, static::SYSTEM, $previous);
+        return new static($propertyPath, $value, $message, $translationKey, static::SYSTEM, $previous);
     }
 }
