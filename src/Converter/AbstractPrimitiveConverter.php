@@ -30,7 +30,7 @@ abstract class AbstractPrimitiveConverter extends AbstractConverter
         // in strict mode we throw an exception rather than setting to null if we couldn't cast
         if (true === $isStrict) {
             if ((null === $newValue) && (null !== $value)) {
-                throw ConversionException::fromDomain($propertyName, $value, 'Not a valid type');
+                throw ConversionException::fromDomain($propertyName, $value, 'Not a valid type', 'conversion_exception.primitive.not_a_valid_type');
             }
         }
 

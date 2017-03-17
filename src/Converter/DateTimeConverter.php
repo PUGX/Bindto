@@ -19,13 +19,13 @@ class DateTimeConverter extends AbstractConverter
             $date = \DateTime::createFromFormat($options['format'], $value);
 
             if ($date === false) {
-                throw ConversionException::fromDomain($propertyName, $value, 'Invalid format');
+                throw ConversionException::fromDomain($propertyName, $value, 'Invalid format', 'conversion_exception.date_time.invalid_format');
             }
         } else {
             try {
                 $date = new \DateTime($value);
             } catch (\Exception $ex) {
-                throw ConversionException::fromDomain($propertyName, $value, $ex->getMessage());
+                throw ConversionException::fromDomain($propertyName, $value, $ex->getMessage(), 'conversion_exception.date_time.generic_exception');
             }
         }
 
