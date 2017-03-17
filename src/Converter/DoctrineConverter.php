@@ -56,9 +56,9 @@ class DoctrineConverter extends AbstractConverter
             }
         } catch (\Exception $ex) {
             if ($ex instanceof ORMException) {
-                throw ConversionException::fromSystem($propertyName, $value, $ex->getMessage(), $ex);
+                throw ConversionException::fromSystem($propertyName, $value, $ex->getMessage(), 'conversion_exception.doctrine.exception',$ex);
             } else if ($ex instanceof \DomainException) {
-                throw ConversionException::fromDomain($propertyName, $value, $ex->getMessage(), $ex);
+                throw ConversionException::fromDomain($propertyName, $value, $ex->getMessage(), 'conversion_exception.doctrine.exception', $ex);
             }
 
             throw $ex;

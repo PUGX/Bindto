@@ -17,7 +17,7 @@ class UuidConverter extends AbstractConverter
         try {
             return Uuid::fromString($value);
         } catch (\InvalidArgumentException $ex) {
-            throw ConversionException::fromDomain($propertyPath, $value, $ex->getMessage(), $ex);
+            throw ConversionException::fromDomain($propertyPath, $value, $ex->getMessage(), 'conversion_exception.invalid_argument_exception',$ex);
         }
     }
 
