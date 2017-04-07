@@ -32,7 +32,7 @@ class ConversionException extends \Exception implements ExceptionInterface
      * @param int $code
      * @param mixed $previous
      */
-    public function __construct($propertyPath, $value, $message = null, $translationKey, $code = 0, $previous = null)
+    public function __construct($propertyPath, $value = null, $message = null, $translationKey, $code = 0, $previous = null)
     {
         parent::__construct(sprintf('The conversion of "%s" failed: %s', $propertyPath, $message ?: 'Unknown reason'), $code, $previous);
 
@@ -58,7 +58,7 @@ class ConversionException extends \Exception implements ExceptionInterface
     }
 
     /**
-     * @return mixed
+     * @return mixed|null
      */
     public function getValue()
     {
