@@ -4,6 +4,7 @@ namespace Bindto\Converter;
 use Bindto\Converter\AbstractConverter;
 use Bindto\Exception\ConversionException;
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UuidConverter extends AbstractConverter
@@ -14,9 +15,13 @@ class UuidConverter extends AbstractConverter
      */
     public function apply($value, $propertyPath, array $options, $from)
     {
+        if (true === is_object($value)) {
+            return $value;
+        }
+
         try {
             return Uuid::fromString($value);
-        } catch (\InvalidArgumentException $ex) {
+        } catch (\Throwable $ex) {
             throw ConversionException::fromDomain($propertyPath, $value, $ex->getMessage(), 'conversion_exception.invalid_argument_exception',$ex);
         }
     }

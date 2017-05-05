@@ -22,4 +22,12 @@ class BooleanConverter extends AbstractPrimitiveConverter
     {
         return !is_bool($value);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function createInvalidTypeException(string $propertyName, $value)
+    {
+        return ConversionException::fromDomain($propertyName, $value, 'Not a valid boolean', 'conversion_exception.primitive.boolean.not_a_valid_type');
+    }
 }

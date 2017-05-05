@@ -22,4 +22,12 @@ class IntegerConverter extends AbstractPrimitiveConverter
     {
         return !is_int($value);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function createInvalidTypeException(string $propertyName, $value)
+    {
+        return ConversionException::fromDomain($propertyName, $value, 'Not a valid integer', 'conversion_exception.primitive.integer.not_a_valid_type');
+    }
 }

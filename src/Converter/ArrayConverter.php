@@ -22,4 +22,12 @@ class ArrayConverter extends AbstractPrimitiveConverter
     {
         return !is_array($value);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function createInvalidTypeException(string $propertyName, $value)
+    {
+        return ConversionException::fromDomain($propertyName, $value, 'Not a valid array', 'conversion_exception.primitive.array.not_a_valid_type');
+    }
 }

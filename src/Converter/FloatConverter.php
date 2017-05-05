@@ -24,4 +24,12 @@ class FloatConverter extends AbstractPrimitiveConverter
     {
         return !is_float($value);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function createInvalidTypeException(string $propertyName, $value)
+    {
+        return ConversionException::fromDomain($propertyName, $value, 'Not a valid integer', 'conversion_exception.primitive.float.not_a_valid_type');
+    }
 }
