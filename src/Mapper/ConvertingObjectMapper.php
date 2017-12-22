@@ -171,7 +171,7 @@ class ConvertingObjectMapper implements MapperInterface
                 $convertedItem = null;
 
                 if (null !== $filteredItem) {
-                    $convertedItem = $this->convert($filteredItem, $propertyPath, $converter, $options, $source);
+                    $convertedItem = $this->convert($filteredItem, $propertyPath, $converter, $options, $obj);
                 }
 
                 $this->setPropertyValue($obj, $propertyPath, $convertedItem);
@@ -181,7 +181,7 @@ class ConvertingObjectMapper implements MapperInterface
             $convertedValue = null;
 
             if (null !== $filteredValue) {
-                $convertedValue = $this->convert($filteredValue, $propertyName, $converter, $options, $source);
+                $convertedValue = $this->convert($filteredValue, $propertyName, $converter, $options, $obj);
             }
 
             $this->setPropertyValue($obj, $propertyName, $convertedValue);
