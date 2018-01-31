@@ -2,12 +2,13 @@
 namespace Bindto\Annotation;
 
 use Doctrine\Common\Annotations\Annotation\Required;
+use Symfony\Component\Validator\Constraints\Valid;
 
 /**
  * @Annotation
  * @Target({"PROPERTY", "ANNOTATION"})
  */
-class Convert
+class Convert extends Valid
 {
 
     /**
