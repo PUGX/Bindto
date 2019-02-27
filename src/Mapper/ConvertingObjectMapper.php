@@ -165,6 +165,10 @@ class ConvertingObjectMapper implements MapperInterface
         $value = $this->getPropertyValue($obj, $propertyName);
 
         if (true === $annotation->isArray) {
+            if (null === $value) {
+                return;
+            }
+
             foreach ($value as $key => $item) {
                 $filteredItem = $this->filterNestedObjects($item);
                 $propertyPath = sprintf('%s[%s]', $property->getName(), $key);
