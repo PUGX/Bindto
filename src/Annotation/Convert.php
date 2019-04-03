@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints\Valid;
  * @Annotation
  * @Target({"PROPERTY", "ANNOTATION"})
  */
-class Convert extends Valid
+class Convert /* FIXME: extends Valid */
 {
 
     /**

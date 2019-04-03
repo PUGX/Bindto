@@ -8,6 +8,7 @@ class ConversionException extends \Exception implements ExceptionInterface
     const DOMAIN = 1;
     const NOT_FOUND = 2;
     const SYSTEM = 3;
+    const UNAUTHORIZED = 4;
 
     /**
      * @var $translationKey
@@ -102,6 +103,19 @@ class ConversionException extends \Exception implements ExceptionInterface
     public static function fromNotFound($propertyPath, $value, $previous = null)
     {
         return new static($propertyPath, $value, 'Not found', 'conversion_exception.not_found',static::NOT_FOUND, $previous);
+    }
+
+    /**
+     * Creates a new exception where permission is not granted.
+     *
+     * @param string $propertyPath
+     * @param mixed $value
+     * @param mixed $previous
+     * @return static
+     */
+    public static function fromAuthorization($propertyPath, $value, $previous = null)
+    {
+        return new static($propertyPath, $value, 'Unauthorized', 'conversion_exception.unauthorized',static::UNAUTHORIZED, $previous);
     }
 
     /**
