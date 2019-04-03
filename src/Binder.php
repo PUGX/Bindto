@@ -88,8 +88,8 @@ class Binder
         return $this->createBindResultFromFilledObject($issues, $newObject);
     }
 
-    protected function createBindResultFromFilledObject($issues, $object)
+    protected function createBindResultFromFilledObject($issues, $object, $metadata=[])
     {
-        return new BindResult($object, $issues);
+        return new BindResult($object, $issues, $metadata);
     }
 }

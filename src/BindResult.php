@@ -10,11 +10,14 @@ class BindResult
     private $data;
     /** @var ConstraintViolationListInterface */
     private $violations;
+    /** @var @mixed */
+    private $aliases;
 
-    public function __construct($data, $violations = [])
+    public function __construct($data, $violations = [], $metadata = [])
     {
         $this->data = $data;
         $this->violations = $violations;
+        $this->metadata = $metadata;
     }
 
     public function isValid()
@@ -30,5 +33,9 @@ class BindResult
     public function getViolations()
     {
         return $this->violations;
+    }
+    public function getMetadata()
+    {
+        return $this->metadata;
     }
 }
